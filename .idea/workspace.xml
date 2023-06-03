@@ -11,43 +11,18 @@
     <option name="showLiveBeansGraph" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8b71b63-aea9-405e-b60c-ab98df4b0e05" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/ApiCashFlowApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/configuration/WebSecurityConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/controller/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/account/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/authority/Authority.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/authority/AuthorityRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/authority/AuthorityService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/income_expense/IncomeExpense.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/income_expense/ScheduledAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/security/LoginDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/security/LoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/user/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/user/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/user/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/utils/PermissionName.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/utils/Runner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/resources/db/migration/V1__create_users_and_authorities_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/resources/db/migration/V2__create_accounts_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/resources/db/migration/V3__create_expenses_and_incomes_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/main/resources/db/migration/V4__create_scheduled_account_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-cash-flow/src/test/java/com/cash_flow_app/apicashflow/ApiCashFlowApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="f8b71b63-aea9-405e-b60c-ab98df4b0e05" name="Changes" comment="first commit">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e80d275f-27ac-4591-8a7f-1104fcfa6a40.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e80d275f-27ac-4591-8a7f-1104fcfa6a40/storage_v2/_src_/database/db_cash_flow.OUhK1Q.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e80d275f-27ac-4591-8a7f-1104fcfa6a40/storage_v2/_src_/database/db_cash_flow.OUhK1Q/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e80d275f-27ac-4591-8a7f-1104fcfa6a40/storage_v2/_src_/database/db_cash_flow.OUhK1Q/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e80d275f-27ac-4591-8a7f-1104fcfa6a40/storage_v2/_src_/database/db_cash_flow.OUhK1Q/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-cash-flow" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +38,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/api-cash-flow" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -74,37 +49,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-20&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/andresnino/Documents/Aprendizaje/spring boot/cash-flow-app/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/account&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;1448056fa4bd9680b839bd831798e6cf&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "openjdk-20",
+    "last_opened_file_path": "/Users/andresnino/Documents/Aprendizaje/spring boot/cash-flow-app/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/account",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "spring.configuration.checksum": "1448056fa4bd9680b839bd831798e6cf",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/api-cash-flow/src/main/java/com/cash_flow_app/apicashflow/entities_repositories_and_services/base/account" />
@@ -154,12 +129,27 @@
       <workItem from="1684617458525" duration="19927000" />
       <workItem from="1684712148909" duration="14750000" />
       <workItem from="1685751187343" duration="643000" />
-      <workItem from="1685763194757" duration="1048000" />
+      <workItem from="1685763194757" duration="2949000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <created>1685764487679</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685764487679</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/api-cash-flow" />
+    </ignored-roots>
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
