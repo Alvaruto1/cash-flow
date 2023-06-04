@@ -1,5 +1,7 @@
 package com.cash_flow_app.apicashflow.configuration;
 
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.security.JWTAuthenticationFilter;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.security.JWTAuthorizationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,9 +41,10 @@ public class WebSecurityConfiguration {
                     .requestMatchers(HttpMethod.PUT, "/demo").hasAuthority("ENDPOINT_DEMO_PERMISSION_UPDATE")
                     .requestMatchers(HttpMethod.PATCH, "/demo").hasAuthority("ENDPOINT_DEMO_PERMISSION_UPDATE")
                     .requestMatchers(HttpMethod.DELETE, "/demo").hasAuthority("ENDPOINT_DEMO_PERMISSION_DELETE")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/user/signup").permitAll()
                 .and()
                     .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

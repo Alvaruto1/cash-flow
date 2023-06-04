@@ -1,4 +1,4 @@
-package com.cash_flow_app.apicashflow.configuration;
+package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.security;
 
 import com.cash_flow_app.apicashflow.utils.AuthCredentials;
 import com.cash_flow_app.apicashflow.utils.TokenUtils;
