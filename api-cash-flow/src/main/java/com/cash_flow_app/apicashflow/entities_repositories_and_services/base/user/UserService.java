@@ -5,8 +5,8 @@ import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.aut
 import com.cash_flow_app.apicashflow.utils.PermissionName;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class UserService{
     public User save(@NonNull User user){
         return userRepository.save(user);
     }
-    public User signup(@NonNull UserDto userDto){
+    public User signup(@NonNull UserDto userDto) {
         ArrayList<Authority> authorities = new ArrayList<>();
         for (HashMap<String, Object> authorityHashmap: userDto.getAuthorities()){
             ArrayList<String> actions = (ArrayList<String>) authorityHashmap.get("actions");
@@ -36,7 +36,12 @@ public class UserService{
                 }
             }
         }
-        return save(new User(userDto.getUsername(), userDto.getPassword(), authorities));
+        if (authorities.isEmpty()){
+            return null;
+        }
+        else{
+            return save(new User(userDto.getUsername(), new BCryptPasswordEncoder().encode(userDto.getPassword()), authorities));
+        }
     }
     public void delete(@NonNull User user){
         userRepository.delete(user);

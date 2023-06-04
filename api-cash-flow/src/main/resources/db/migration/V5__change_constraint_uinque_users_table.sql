@@ -1,0 +1,1 @@
+ALTER TABLE public.users ADD CONSTRAINT constraint_name UNIQUE (username);
