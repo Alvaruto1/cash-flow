@@ -10,9 +10,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService{
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     private final UserRepository userRepository;
     public User save(@NonNull User user){
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
