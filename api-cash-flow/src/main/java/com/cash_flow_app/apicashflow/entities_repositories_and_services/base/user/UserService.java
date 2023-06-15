@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,10 @@ public class UserService{
     }
     public Optional<User> findByUsername(@NonNull String username){
         return userRepository.findByUsername(username);
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
 }

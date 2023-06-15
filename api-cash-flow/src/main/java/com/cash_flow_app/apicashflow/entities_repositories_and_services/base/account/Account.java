@@ -4,9 +4,7 @@ import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.aut
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.IncomeExpense;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,11 +12,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name="accounts")
 public class Account {
 
-    public Account(String description) {
+    public Account(String description, List<User> users) {
         this.description = description;
+        this.users = users;
     }
 
     @Id

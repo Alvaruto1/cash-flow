@@ -3,15 +3,16 @@ package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.us
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.Authority;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name="users")
 public class User {
 

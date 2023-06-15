@@ -2,14 +2,15 @@ package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.au
 
 import com.cash_flow_app.apicashflow.utils.PermissionName;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name="authorities")
 public class Authority {
 
