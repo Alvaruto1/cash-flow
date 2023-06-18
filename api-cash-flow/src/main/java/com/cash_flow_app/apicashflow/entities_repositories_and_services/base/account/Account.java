@@ -6,8 +6,7 @@ import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.use
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ import java.util.UUID;
 @Entity(name="accounts")
 public class Account {
 
-    public Account(String description, List<User> users) {
+    public Account(String description, ArrayList<User> users) {
         this.description = description;
         this.users = users;
     }
@@ -28,9 +27,15 @@ public class Account {
 
     private String description;
 
-    @ManyToMany(mappedBy = "accounts")
-    private List<User> users;
+    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<User> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<IncomeExpense> incomes_expenses;
+
+    public void addUser(User user) {
+        users.add(user);
+        user.getAccounts().add(this);
+    }
 }

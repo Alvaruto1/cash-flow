@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -40,7 +41,11 @@ public class AccountController extends ApiController {
     public ResponseEntity<ApiResponse> get(@PathVariable String uuid) throws Exception {
         Account account;
         try{
-            account = accountService.getAccount(UUID.fromString(uuid));
+            Optional<Account> accountOptional = accountService.getAccount(UUID.fromString(uuid));
+            if (accountOptional.isEmpty()) {
+                throw new Exception("Account not found");
+            }
+            account = accountOptional.get();
         } catch (Exception e){
             return ApiController.badRequestError(e.getMessage(), "/api/v1/account/get");
         }
@@ -61,8 +66,11 @@ public class AccountController extends ApiController {
     @DeleteMapping("/delete/{uuid}")
     public ResponseEntity<ApiResponse> delete(@PathVariable String uuid) throws Exception {
         Account account;
-        try{
-            account = accountService.getAccount(UUID.fromString(uuid));
+        try{Optional<Account> accountOptional = accountService.getAccount(UUID.fromString(uuid));
+            if (accountOptional.isEmpty()) {
+                throw new Exception("Account not found");
+            }
+            account = accountOptional.get();
             accountService.delete(account);
         } catch (Exception e){
             return ApiController.badRequestError(e.getMessage(), "/api/v1/account/delete");

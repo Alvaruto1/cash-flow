@@ -5,8 +5,7 @@ import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.aut
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -31,18 +30,19 @@ public class User {
 
     private String password;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
     )
     private List<Authority> authorities;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.LAZY)
+    @Builder.Default
     @JoinTable(name = "user_account",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id")
     )
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
 }

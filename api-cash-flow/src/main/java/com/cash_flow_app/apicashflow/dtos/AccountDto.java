@@ -5,11 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
 public class AccountDto implements ApiResponse {
     private String description;
-    private ArrayList<String> users;
+    private List<String> users;
 }
 

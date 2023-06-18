@@ -7,5 +7,7 @@ import java.util.UUID;
 
 public interface AccountRepository extends JpaRepository<Account, UUID> {
     List<Account> findByUsers_Username(String username);
+    Optional<Account> findAccountById(UUID id);
+
 
 }

@@ -1,0 +1,1 @@
+ALTER TABLE public.incomes_expenses ADD COLUMN value numeric NOT NULL DEFAULT 0;

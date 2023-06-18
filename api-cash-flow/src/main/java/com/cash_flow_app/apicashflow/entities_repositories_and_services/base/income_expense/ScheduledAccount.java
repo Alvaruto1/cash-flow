@@ -1,14 +1,15 @@
 package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name="scheduled_accounts")
 public class ScheduledAccount {
     public ScheduledAccount(Periodicity periodicity, LocalDateTime startDate, LocalDateTime endDate) {
@@ -31,10 +32,10 @@ public class ScheduledAccount {
     private LocalDateTime endDate;
 
     @JoinColumn(name = "income_expense_id")
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     private IncomeExpense incomeExpense;
 
-    enum Periodicity {
+    public enum Periodicity {
         DAILY, WEEKLY, MONTHLY, BIMONTHLY, SEMIANNUAL, ANNUAL
     }
 

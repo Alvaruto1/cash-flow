@@ -2,25 +2,28 @@ package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.in
 
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name="incomes_expenses")
 public class IncomeExpense {
 
-    public IncomeExpense(String description, Category category, PaymentMethod paymentMethod, Type type, LocalDateTime date, Account account) {
+    public IncomeExpense(String description, Category category, PaymentMethod paymentMethod, Type type, LocalDateTime date, BigDecimal value, Account account) {
         this.description = description;
         this.category = category;
         this.paymentMethod = paymentMethod;
         this.type = type;
         this.date = date;
         this.account = account;
+        this.value = value;
     }
 
     @Id
@@ -40,22 +43,24 @@ public class IncomeExpense {
 
     private LocalDateTime date;
 
-    @ManyToOne()
+    private BigDecimal value;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
     @OneToOne(mappedBy = "incomeExpense", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private ScheduledAccount scheduledAccount;
 
-    enum Category {
+    public enum Category {
         FOOD, HOUSING, TRANSPORT, HEALTH, EDUCATION, CLOTHING, TRAVEL, FAMILY, PETS, VEHICLES, SAVINGS
     }
 
-    enum PaymentMethod {
+    public enum PaymentMethod {
         CASH, CREDIT_CARD, DEBIT_CARD, OTHERS
     }
 
-    enum Type {
+    public enum Type {
         INCOME, EXPENSE
     }
 }
