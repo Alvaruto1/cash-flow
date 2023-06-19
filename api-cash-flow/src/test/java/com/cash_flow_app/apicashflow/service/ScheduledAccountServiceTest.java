@@ -1,10 +1,14 @@
-package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense;
+package com.cash_flow_app.apicashflow.service;
 
 import com.cash_flow_app.apicashflow.dtos.AccountDto;
 import com.cash_flow_app.apicashflow.dtos.IncomeExpenseDto;
 import com.cash_flow_app.apicashflow.dtos.ScheduledAccountDto;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.AccountService;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.IncomeExpense;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.IncomeExpenseService;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.ScheduledAccount;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.ScheduledAccountService;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;
 import jakarta.transaction.Transactional;

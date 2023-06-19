@@ -49,6 +49,14 @@ public class IncomeExpenseService {
         return incomeExpenseRepository.findByAccount_Id(accountId);
     }
 
+    public List<IncomeExpense> getExpensesByAccountId(@NonNull UUID accountId) {
+        return incomeExpenseRepository.findByAccount_IdAndType(accountId, IncomeExpense.Type.EXPENSE);
+    }
+
+    public List<IncomeExpense> getIncomesByAccountId(@NonNull UUID accountId) {
+        return incomeExpenseRepository.findByAccount_IdAndType(accountId, IncomeExpense.Type.INCOME);
+    }
+
     public IncomeExpenseDto incomeExpenseToDto(@NonNull IncomeExpense incomeExpense) {
         return IncomeExpenseDto.builder()
                 .description(incomeExpense.getDescription())

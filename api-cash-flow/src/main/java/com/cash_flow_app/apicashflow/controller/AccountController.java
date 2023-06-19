@@ -3,12 +3,8 @@ package com.cash_flow_app.apicashflow.controller;
 import com.cash_flow_app.apicashflow.controller.base.ApiController;
 import com.cash_flow_app.apicashflow.controller.base.ApiResponse;
 import com.cash_flow_app.apicashflow.dtos.AccountDto;
-import com.cash_flow_app.apicashflow.dtos.AccountDtos;
-import com.cash_flow_app.apicashflow.dtos.UserDto;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.AccountService;
-import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
-import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,9 +48,9 @@ public class AccountController extends ApiController {
         return ApiController.okResponse(accountService.accountToDto(account));
     }
 
-    @GetMapping("/get_all/by_username")
+    @GetMapping("/get_all/by_username/{username}")
     public ResponseEntity<ApiResponse> getAllByUsername(@PathVariable String username) throws Exception {
-        List<Account> accounts = new ArrayList<>();
+        List<Account> accounts;
         try{
             accounts = accountService.getAccountsByUsername(username);
         } catch (Exception e){

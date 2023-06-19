@@ -118,4 +118,41 @@ class IncomeExpenseServiceTest {
         assertTrue(foundIncomesExpenses.contains(incomeExpense));
         assertTrue(foundIncomesExpenses.contains(incomeExpense2));
     }
+
+    @Test
+    void getExpensesOrIncomesByAccountId() throws IOException {
+        //given
+        for(int i=0; i<5; i++){
+            IncomeExpenseDto expenseDto = IncomeExpenseDto.builder()
+                    .accountId(accountTest.getId())
+                    .type(IncomeExpense.Type.EXPENSE.name())
+                    .paymentMethod(IncomeExpense.PaymentMethod.CREDIT_CARD.name())
+                    .category(IncomeExpense.Category.FOOD.name())
+                    .value(new BigDecimal(10000))
+                    .date(LocalDateTime.now())
+                    .description("descripcion prueba 2 gasto")
+                    .build();
+            IncomeExpenseDto incomeDto = IncomeExpenseDto.builder()
+                    .accountId(accountTest.getId())
+                    .type(IncomeExpense.Type.INCOME.name())
+                    .paymentMethod(IncomeExpense.PaymentMethod.CREDIT_CARD.name())
+                    .category(IncomeExpense.Category.HOUSING.name())
+                    .value(new BigDecimal(15000))
+                    .date(LocalDateTime.now())
+                    .description("descripcion prueba 2 ingreso")
+                    .build();
+            IncomeExpense income = incomeExpenseService.save(incomeDto);
+            IncomeExpense expense = incomeExpenseService.save(expenseDto);
+        }
+        //when
+        List<IncomeExpense> foundExpenses = incomeExpenseService.getExpensesByAccountId(accountTest.getId());
+        List<IncomeExpense> foundIncomes = incomeExpenseService.getIncomesByAccountId(accountTest.getId());
+        //then
+        assertEquals(foundExpenses.size(), 5);
+        assertEquals(foundIncomes.size(), 5);
+        assertEquals(foundExpenses.get(0).getType(), IncomeExpense.Type.EXPENSE);
+        assertEquals(foundIncomes.get(0).getType(), IncomeExpense.Type.INCOME);
+    }
+
+
 }
