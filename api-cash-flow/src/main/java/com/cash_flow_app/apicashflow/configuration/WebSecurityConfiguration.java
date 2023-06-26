@@ -31,6 +31,29 @@ public class WebSecurityConfiguration {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/account/create").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_CREATE")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/account/get/{uuid}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/account/get_all/by_username/{username}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/account/delete/{uuid}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_DELETE")
+
+                    .requestMatchers(HttpMethod.POST, "/api/v1/income_expense/create").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_CREATE")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get/{uuid}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/expenses/{account_id}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/incomes/{account_id}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/income_expense/delete/{uuid}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_DELETE")
+
+                    .requestMatchers(HttpMethod.POST, "/api/v1/scheduled_account/create").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_CREATE")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/{uuid}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/by_income_expense/{income_expense_id}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/scheduled_account/delete/{uuid}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_DELETE")
+
+                    .requestMatchers(HttpMethod.GET, "/api/v1/user/get_all").hasAuthority("ENDPOINT_USER_PERMISSION_READ")
+
+                .requestMatchers(HttpMethod.POST, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_CREATE")
+                    .requestMatchers(HttpMethod.PUT, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_UPDATE")
+                    .requestMatchers(HttpMethod.PATCH, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_UPDATE")
+                    .requestMatchers(HttpMethod.DELETE, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_DELETE")
+
                     .requestMatchers(HttpMethod.GET, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_READ")
                     .requestMatchers(HttpMethod.POST, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_CREATE")
                     .requestMatchers(HttpMethod.PUT, "/home").hasAuthority("ENDPOINT_HOME_PERMISSION_UPDATE")

@@ -1,5 +1,9 @@
 package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user;
+import com.cash_flow_app.apicashflow.dtos.AccountDto;
+import com.cash_flow_app.apicashflow.dtos.AccountDtos;
 import com.cash_flow_app.apicashflow.dtos.UserDto;
+import com.cash_flow_app.apicashflow.dtos.UsersDto;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.Authority;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.AuthorityService;
 import com.cash_flow_app.apicashflow.utils.PermissionName;
@@ -53,6 +57,22 @@ public class UserService{
 
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public UserDto usersToDto(@NonNull User user) {
+        return UserDto.builder()
+                .username(user.getUsername())
+                .build();
+    }
+
+    public UsersDto usersToDtos(@NonNull List<User> users) {
+        UsersDto usersDtos = UsersDto.builder().build();
+        List<UserDto> listUserDtos = new ArrayList<>();
+        for (User user : users) {
+            listUserDtos.add(usersToDto(user));
+        }
+        usersDtos.setUserDtos(listUserDtos);
+        return usersDtos;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.cash_flow_app.apicashflow.service;
 import com.cash_flow_app.apicashflow.dtos.UserDto;
+import com.cash_flow_app.apicashflow.dtos.UsersDto;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.AuthorityService;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;

@@ -21,6 +21,10 @@ public class AuthorityService {
         ));
     }
 
+    public Authority createOneAuthorityEndpoint(@NonNull String endpoint, @NonNull PermissionName permission){
+        return authorityRepository.save(new Authority(endpoint, permission));
+    }
+
     public List<Authority> getAllPermissionsToEndpoint(@NonNull String endpoint){
         return authorityRepository.findAllByEndpoint(endpoint);
     }
