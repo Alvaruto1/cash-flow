@@ -1,8 +1,12 @@
 package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority;
 
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;
 import com.cash_flow_app.apicashflow.utils.PermissionName;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +28,8 @@ public class AuthorityService {
     public Authority createOneAuthorityEndpoint(@NonNull String endpoint, @NonNull PermissionName permission){
         return authorityRepository.save(new Authority(endpoint, permission));
     }
+
+
 
     public List<Authority> getAllPermissionsToEndpoint(@NonNull String endpoint){
         return authorityRepository.findAllByEndpoint(endpoint);

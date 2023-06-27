@@ -34,6 +34,7 @@ public class WebSecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/api/v1/account/create").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_CREATE")
                     .requestMatchers(HttpMethod.GET, "/api/v1/account/get/{uuid}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_READ")
                     .requestMatchers(HttpMethod.GET, "/api/v1/account/get_all/by_username/{username}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/account/get_all/by_current_user").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_READ")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/account/delete/{uuid}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_DELETE")
 
                     .requestMatchers(HttpMethod.POST, "/api/v1/income_expense/create").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_CREATE")

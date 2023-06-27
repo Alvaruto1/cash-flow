@@ -3,12 +3,13 @@ import com.cash_flow_app.apicashflow.dtos.AccountDto;
 import com.cash_flow_app.apicashflow.dtos.AccountDtos;
 import com.cash_flow_app.apicashflow.dtos.UserDto;
 import com.cash_flow_app.apicashflow.dtos.UsersDto;
-import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.Authority;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.AuthorityService;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.security.LoginDetails;
 import com.cash_flow_app.apicashflow.utils.PermissionName;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -57,6 +58,11 @@ public class UserService{
 
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public Optional<User> getCurrentLoggedUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return findByUsername(principal.toString());
     }
 
     public UserDto usersToDto(@NonNull User user) {

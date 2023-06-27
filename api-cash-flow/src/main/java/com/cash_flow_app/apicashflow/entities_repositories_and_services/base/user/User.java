@@ -37,7 +37,7 @@ public class User {
     )
     private List<Authority> authorities;
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.EAGER)
     @Builder.Default
     @JoinTable(name = "user_account",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

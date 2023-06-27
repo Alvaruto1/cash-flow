@@ -36,6 +36,9 @@ public class Account {
 
     public void addUser(User user) {
         users.add(user);
+        if(user.getAccounts() == null){
+            user.setAccounts(new ArrayList<>());
+        }
         user.getAccounts().add(this);
     }
 }

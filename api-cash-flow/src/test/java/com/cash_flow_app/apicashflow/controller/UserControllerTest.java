@@ -108,9 +108,6 @@ class UserControllerTest {
                         .content("{ \"username\": \"usuario_test\", \"password\": \"123456\" }")
         ).andDo(MockMvcResultHandlers.print()).andReturn();
         String token = response.getResponse().getHeader("Authorization");
-        UsersDto usersDto = UsersDto.builder()
-                .userDtos(List.of(userDtoTest, userDto2Test))
-                .build();
         //when
         mockMvc.perform(
                 get("/api/v1/user/get_all")

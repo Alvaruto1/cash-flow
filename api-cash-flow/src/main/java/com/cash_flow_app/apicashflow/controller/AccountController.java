@@ -5,11 +5,12 @@ import com.cash_flow_app.apicashflow.controller.base.ApiResponse;
 import com.cash_flow_app.apicashflow.dtos.AccountDto;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.Account;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.AccountService;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class AccountController extends ApiController {
 
     private final AccountService accountService;
+    private final UserService userService;
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> create(@RequestBody AccountDto accountDto) throws Exception {
@@ -53,6 +55,22 @@ public class AccountController extends ApiController {
         List<Account> accounts;
         try{
             accounts = accountService.getAccountsByUsername(username);
+        } catch (Exception e){
+            return ApiController.badRequestError(e.getMessage(), "/api/v1/account/get");
+        }
+        return ApiController.okResponse(accountService.accountsToDtos(accounts));
+    }
+
+    @GetMapping("/get_all/by_current_user")
+    public ResponseEntity<ApiResponse> getAllByCurrentUser() throws Exception {
+        List<Account> accounts;
+        Optional<User> userOptional = userService.getCurrentLoggedUser();
+        if (userOptional.isEmpty()) {
+            throw new Exception("User not found");
+        }
+        User user = userOptional.get();
+        try{
+            accounts = accountService.getAccountsByUsername(user.getUsername());
         } catch (Exception e){
             return ApiController.badRequestError(e.getMessage(), "/api/v1/account/get");
         }

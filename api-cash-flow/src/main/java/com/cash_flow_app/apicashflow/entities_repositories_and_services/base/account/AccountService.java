@@ -56,6 +56,7 @@ public class AccountService {
             usernames.add(user.getUsername());
         }
         return AccountDto.builder()
+                .id(account.getId().toString())
                 .description(account.getDescription())
                 .users(usernames)
                 .build();

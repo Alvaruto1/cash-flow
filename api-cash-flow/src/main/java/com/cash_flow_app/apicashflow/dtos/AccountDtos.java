@@ -9,5 +9,6 @@ import java.util.ArrayList;
 @Data
 @Builder
 public class AccountDtos implements ApiResponse {
-    private ArrayList<AccountDto> accountDtos;
+    @Builder.Default
+    private ArrayList<AccountDto> accountDtos = new ArrayList<>();
 }
