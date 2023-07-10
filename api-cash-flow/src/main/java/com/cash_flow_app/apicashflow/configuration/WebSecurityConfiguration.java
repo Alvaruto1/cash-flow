@@ -37,11 +37,11 @@ public class WebSecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/api/v1/account/get_all/by_current_user").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_READ")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/account/delete/{uuid}").hasAuthority("ENDPOINT_ACCOUNT_PERMISSION_DELETE")
 
-                    .requestMatchers(HttpMethod.POST, "/api/v1/income_expense/create").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_CREATE")
-                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get/{uuid}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_READ")
-                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/expenses/{account_id}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_READ")
-                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/incomes/{account_id}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_READ")
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/income_expense/delete/{uuid}").hasAuthority("ENDPOINT_INCOME_EXPENSE_PERMISSION_DELETE")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/income_expense/create").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_CREATE")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get/{uuid}").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/expenses/{account_id}").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/incomes/{account_id}").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/income_expense/delete/{uuid}").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_DELETE")
 
                     .requestMatchers(HttpMethod.POST, "/api/v1/scheduled_account/create").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_CREATE")
                     .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/{uuid}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_READ")

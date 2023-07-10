@@ -38,7 +38,7 @@ public class IncomeExpenseController extends ApiController {
         try{
             Optional<IncomeExpense> incomeExpenseOptional = incomeExpenseService.getIncomeExpense(UUID.fromString(uuid));
             if (incomeExpenseOptional.isEmpty()) {
-                throw new Exception("Account not found");
+                throw new Exception("Income Expense not found");
             }
             incomeExpense = incomeExpenseOptional.get();
         } catch (Exception e){
@@ -75,7 +75,7 @@ public class IncomeExpenseController extends ApiController {
         try{
             Optional<IncomeExpense> incomeExpenseOptional = incomeExpenseService.getIncomeExpense(UUID.fromString(uuid));
             if (incomeExpenseOptional.isEmpty()) {
-                throw new Exception("Account not found");
+                throw new Exception("Income Expense not found");
             }
             incomeExpense = incomeExpenseOptional.get();
             incomeExpenseService.delete(incomeExpense);

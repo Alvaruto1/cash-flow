@@ -53,7 +53,7 @@ class IncomeExpenseServiceTest {
         accountDto.setUsers(List.of(userTest.getUsername()));
         accountTest = accountService.save(accountDto);
         incomeExpenseDtoTest = IncomeExpenseDto.builder()
-                .accountId(accountTest.getId())
+                .accountId(accountTest.getId().toString())
                 .type(IncomeExpense.Type.EXPENSE.name())
                 .paymentMethod(IncomeExpense.PaymentMethod.CASH.name())
                 .category(IncomeExpense.Category.FAMILY.name())
@@ -102,7 +102,7 @@ class IncomeExpenseServiceTest {
         //given
         IncomeExpense incomeExpense = incomeExpenseService.save(incomeExpenseDtoTest);
         IncomeExpenseDto incomeExpenseDto = IncomeExpenseDto.builder()
-                .accountId(accountTest.getId())
+                .accountId(accountTest.getId().toString())
                 .type(IncomeExpense.Type.INCOME.name())
                 .paymentMethod(IncomeExpense.PaymentMethod.CREDIT_CARD.name())
                 .category(IncomeExpense.Category.FOOD.name())
@@ -124,7 +124,7 @@ class IncomeExpenseServiceTest {
         //given
         for(int i=0; i<5; i++){
             IncomeExpenseDto expenseDto = IncomeExpenseDto.builder()
-                    .accountId(accountTest.getId())
+                    .accountId(accountTest.getId().toString())
                     .type(IncomeExpense.Type.EXPENSE.name())
                     .paymentMethod(IncomeExpense.PaymentMethod.CREDIT_CARD.name())
                     .category(IncomeExpense.Category.FOOD.name())
@@ -133,7 +133,7 @@ class IncomeExpenseServiceTest {
                     .description("descripcion prueba 2 gasto")
                     .build();
             IncomeExpenseDto incomeDto = IncomeExpenseDto.builder()
-                    .accountId(accountTest.getId())
+                    .accountId(accountTest.getId().toString())
                     .type(IncomeExpense.Type.INCOME.name())
                     .paymentMethod(IncomeExpense.PaymentMethod.CREDIT_CARD.name())
                     .category(IncomeExpense.Category.HOUSING.name())

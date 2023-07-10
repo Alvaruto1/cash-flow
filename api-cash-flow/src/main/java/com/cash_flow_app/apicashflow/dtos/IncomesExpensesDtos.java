@@ -10,5 +10,6 @@ import java.util.ArrayList;
 @Data
 @Builder
 public class IncomesExpensesDtos implements ApiResponse {
-    private ArrayList<IncomeExpenseDto> incomesExpensesDtos;
+    @Builder.Default
+    private ArrayList<IncomeExpenseDto> incomesExpensesDtos = new ArrayList<>();
 }

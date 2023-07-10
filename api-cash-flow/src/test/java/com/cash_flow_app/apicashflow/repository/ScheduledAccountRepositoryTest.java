@@ -56,7 +56,7 @@ class ScheduledAccountRepositoryTest {
         accountDto.setUsers(List.of(userTest.getUsername()));
         accountTest = accountService.save(accountDto);
         incomeExpenseDtoTest = IncomeExpenseDto.builder()
-                .accountId(accountTest.getId())
+                .accountId(accountTest.getId().toString())
                 .type(IncomeExpense.Type.EXPENSE.name())
                 .paymentMethod(IncomeExpense.PaymentMethod.CASH.name())
                 .category(IncomeExpense.Category.FAMILY.name())

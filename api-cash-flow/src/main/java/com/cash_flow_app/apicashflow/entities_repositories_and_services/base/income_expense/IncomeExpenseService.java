@@ -21,7 +21,7 @@ public class IncomeExpenseService {
     private final AccountService accountService;
 
     public IncomeExpense save(@NonNull IncomeExpenseDto incomeExpenseDto) throws IOException {
-        Optional<Account> account = accountService.getAccount(incomeExpenseDto.getAccountId());
+        Optional<Account> account = accountService.getAccount(UUID.fromString(incomeExpenseDto.getAccountId()));
         if(account.isEmpty()){
             throw new IOException("Account not found");
         }
@@ -59,13 +59,14 @@ public class IncomeExpenseService {
 
     public IncomeExpenseDto incomeExpenseToDto(@NonNull IncomeExpense incomeExpense) {
         return IncomeExpenseDto.builder()
+                .id(incomeExpense.getId().toString())
                 .description(incomeExpense.getDescription())
                 .category(incomeExpense.getCategory().name())
                 .paymentMethod(incomeExpense.getPaymentMethod().name())
                 .type(incomeExpense.getType().name())
                 .date(incomeExpense.getDate())
                 .value(incomeExpense.getValue())
-                .accountId(incomeExpense.getAccount().getId())
+                .accountId(incomeExpense.getAccount().getId().toString())
                 .build();
     }
 
