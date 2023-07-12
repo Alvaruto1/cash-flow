@@ -48,6 +48,7 @@ public class ScheduledAccountService {
 
     public ScheduledAccountDto scheduledAccountToDto(@NonNull ScheduledAccount scheduledAccount) {
         return ScheduledAccountDto.builder()
+                .id(scheduledAccount.getId().toString())
                 .periodicity(scheduledAccount.getPeriodicity().name())
                 .startDate(scheduledAccount.getStartDate())
                 .endDate(scheduledAccount.getEndDate())

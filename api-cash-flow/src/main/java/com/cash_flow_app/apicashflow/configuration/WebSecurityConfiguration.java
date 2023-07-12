@@ -43,10 +43,10 @@ public class WebSecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/api/v1/income_expense/get_all/incomes/{account_id}").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_READ")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/income_expense/delete/{uuid}").hasAuthority("ENDPOINT_INCOMEEXPENSE_PERMISSION_DELETE")
 
-                    .requestMatchers(HttpMethod.POST, "/api/v1/scheduled_account/create").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_CREATE")
-                    .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/{uuid}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_READ")
-                    .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/by_income_expense/{income_expense_id}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_READ")
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/scheduled_account/delete/{uuid}").hasAuthority("ENDPOINT_SCHEDULED_ACCOUNT_PERMISSION_DELETE")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/scheduled_account/create").hasAuthority("ENDPOINT_SCHEDULEDACCOUNT_PERMISSION_CREATE")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/{uuid}").hasAuthority("ENDPOINT_SCHEDULEDACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/scheduled_account/get/by_income_expense/{income_expense_id}").hasAuthority("ENDPOINT_SCHEDULEDACCOUNT_PERMISSION_READ")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/scheduled_account/delete/{uuid}").hasAuthority("ENDPOINT_SCHEDULEDACCOUNT_PERMISSION_DELETE")
 
                     .requestMatchers(HttpMethod.GET, "/api/v1/user/get_all").hasAuthority("ENDPOINT_USER_PERMISSION_READ")
 

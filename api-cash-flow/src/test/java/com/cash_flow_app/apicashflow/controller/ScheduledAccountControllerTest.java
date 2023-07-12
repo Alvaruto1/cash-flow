@@ -2,8 +2,10 @@ package com.cash_flow_app.apicashflow.controller;
 
 import com.cash_flow_app.apicashflow.dtos.AccountDto;
 import com.cash_flow_app.apicashflow.dtos.IncomeExpenseDto;
+import com.cash_flow_app.apicashflow.dtos.ScheduledAccountDto;
 import com.cash_flow_app.apicashflow.dtos.UserDto;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.IncomeExpense;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.ScheduledAccount;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.hamcrest.CoreMatchers;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class IncomeExpenseControllerTest {
+class ScheduledAccountControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -45,6 +48,8 @@ class IncomeExpenseControllerTest {
     AccountDto accountDtoTest, accountDto2Test;
 
     IncomeExpenseDto incomeExpenseDtoTest, incomeExpenseDto2Test;
+
+    ScheduledAccountDto scheduledAccountDtoTest, scheduledAccountDto2Test;
 
     String token;
 
@@ -74,9 +79,18 @@ class IncomeExpenseControllerTest {
         authorityHash3.put("actions", actions3);
         authorityHash3.put("endpoint", "IncomeExpense");
 
+        HashMap<String, Object> authorityHash4 = new HashMap<>();
+        ArrayList<String> actions4 = new ArrayList<>();
+        actions4.add("CREATE");
+        actions4.add("READ");
+        actions4.add("DELETE");
+        authorityHash4.put("actions", actions4);
+        authorityHash4.put("endpoint", "ScheduledAccount");
+
         listHashes.add(authorityHash);
         listHashes.add(authorityHash2);
         listHashes.add(authorityHash3);
+        listHashes.add(authorityHash4);
         userDtoTest = UserDto.builder()
                 .username("usuario_test")
                 .password("123456")
@@ -115,6 +129,22 @@ class IncomeExpenseControllerTest {
                 .value(BigDecimal.valueOf(10000))
                 .build();
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime = localDateTime.plus(Duration.ofDays(360));
+
+        scheduledAccountDtoTest = ScheduledAccountDto.builder()
+                .periodicity("MONTHLY")
+                .startDate(LocalDateTime.now())
+                .endDate(localDateTime)
+                .build();
+
+        localDateTime = localDateTime.plus(Duration.ofDays(180));
+        scheduledAccountDto2Test = ScheduledAccountDto.builder()
+                .periodicity("BIMONTHLY")
+                .startDate(LocalDateTime.now())
+                .endDate(localDateTime)
+                .build();
+
         token = getToken(userDtoTest);
 
     }
@@ -125,94 +155,112 @@ class IncomeExpenseControllerTest {
         String json = result.getResponse().getContentAsString();
         AccountDto accountDtoResponse = new ObjectMapper().readValue(json, AccountDto.class);
         incomeExpenseDtoTest.setAccountId(UUID.fromString(accountDtoResponse.getId()).toString());
+
+        MvcResult result2 = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
+        String json2 = result2.getResponse().getContentAsString();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        IncomeExpenseDto incomeExpenseDtoResponse = mapper.readValue(json2, IncomeExpenseDto.class);
+        scheduledAccountDtoTest.setIncomeExpenseId(UUID.fromString(incomeExpenseDtoResponse.getId()));
         //when
         mockMvc.perform(
-                post("/api/v1/income_expense/create")
+                post("/api/v1/scheduled_account/create")
                         .header("Authorization", token)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(incomeExpenseDtoTest))
+                        .content(objectMapper.writeValueAsString(scheduledAccountDtoTest))
         )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.description", CoreMatchers.is("Ropa de navidad")))
+                .andExpect(jsonPath("$.periodicity", CoreMatchers.is("MONTHLY")))
                 .andReturn();
     }
 
     @Test
-    void getIncomeExpense() throws Exception {
+    void getScheduledAccount() throws Exception {
         //given
         MvcResult resultAccount = createAccountResult(accountDtoTest);
         String json = resultAccount.getResponse().getContentAsString();
         AccountDto accountDtoResponse = new ObjectMapper().readValue(json, AccountDto.class);
 
-        MvcResult result = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
-        String jsonIncomeExpense = result.getResponse().getContentAsString();
+        MvcResult resultIncomeExpense = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
+        String jsonIncomeExpense = resultIncomeExpense.getResponse().getContentAsString();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-
         IncomeExpenseDto incomeExpenseDtoResponse = mapper.readValue(jsonIncomeExpense, IncomeExpenseDto.class);
 
-        //when
-        mockMvc.perform(
-                        get(String.format("/api/v1/income_expense/get/%s", incomeExpenseDtoResponse.getId()))
-                                .header("Authorization", token)
-                                .with(SecurityMockMvcRequestPostProcessors.csrf())
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(incomeExpenseDtoTest))
-                )
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.description", CoreMatchers.is("Ropa de navidad")))
-                .andReturn();
-    }
-
-    @Test
-    void getAllExpenses() throws Exception {
-        //given
-        MvcResult resultAccount = createAccountResult(accountDtoTest);
-        String json = resultAccount.getResponse().getContentAsString();
-        AccountDto accountDtoResponse = new ObjectMapper().readValue(json, AccountDto.class);
-
-        MvcResult result = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
-        MvcResult result2 = createIncomeExpenseResult(incomeExpenseDto2Test, accountDtoResponse.getId());
-
-        String jsonIncomeExpense = result.getResponse().getContentAsString();
-        ObjectMapper mapper = new ObjectMapper();
+        MvcResult result = createScheduledAccountResult(scheduledAccountDtoTest, incomeExpenseDtoResponse.getId());
+        String jsonScheduledAccount = result.getResponse().getContentAsString();
+        mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-
-        IncomeExpenseDto incomeExpenseDtoResponse = mapper.readValue(jsonIncomeExpense, IncomeExpenseDto.class);
+        ScheduledAccountDto scheduledAccountDtoResponse = mapper.readValue(jsonScheduledAccount, ScheduledAccountDto.class);
+        scheduledAccountDtoResponse.setId(UUID.fromString(scheduledAccountDtoResponse.getId()).toString());
         //when
         mockMvc.perform(
-                        get("/api/v1/income_expense/get_all/expenses/" + incomeExpenseDtoResponse.getAccountId())
+                        get(String.format("/api/v1/scheduled_account/get/%s", scheduledAccountDtoResponse.getId()))
                                 .header("Authorization", token)
                                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.incomesExpensesDtos[0].description", CoreMatchers.is("Ropa de navidad")))
-                .andExpect(jsonPath("$.incomesExpensesDtos[1].description", CoreMatchers.is("Ropa de navidad 2")))
+                .andExpect(jsonPath("$.periodicity", CoreMatchers.is("MONTHLY")))
                 .andReturn();
     }
 
     @Test
-    void deleteAccount() throws Exception {
+    void getScheduledAccountByIncomeExpenseId() throws Exception {
         //given
-
         MvcResult resultAccount = createAccountResult(accountDtoTest);
         String json = resultAccount.getResponse().getContentAsString();
         AccountDto accountDtoResponse = new ObjectMapper().readValue(json, AccountDto.class);
 
-        MvcResult result = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
-        String jsonIncomeExpense = result.getResponse().getContentAsString();
+        MvcResult resultIncomeExpense = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
+        String jsonIncomeExpense = resultIncomeExpense.getResponse().getContentAsString();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-
         IncomeExpenseDto incomeExpenseDtoResponse = mapper.readValue(jsonIncomeExpense, IncomeExpenseDto.class);
+
+        MvcResult result = createScheduledAccountResult(scheduledAccountDtoTest, incomeExpenseDtoResponse.getId());
+        String jsonScheduledAccount = result.getResponse().getContentAsString();
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        ScheduledAccountDto scheduledAccountDtoResponse = mapper.readValue(jsonScheduledAccount, ScheduledAccountDto.class);
+        scheduledAccountDtoResponse.setId(UUID.fromString(scheduledAccountDtoResponse.getId()).toString());
         //when
         mockMvc.perform(
-                        delete("/api/v1/income_expense/delete/" + incomeExpenseDtoResponse.getId())
+                        get(String.format("/api/v1/scheduled_account/get/by_income_expense/%s", incomeExpenseDtoResponse.getId()))
+                                .header("Authorization", token)
+                                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.periodicity", CoreMatchers.is("MONTHLY")))
+                .andReturn();
+    }
+
+    @Test
+    void deleteScheduledAccount() throws Exception {
+        //given
+        MvcResult resultAccount = createAccountResult(accountDtoTest);
+        String json = resultAccount.getResponse().getContentAsString();
+        AccountDto accountDtoResponse = new ObjectMapper().readValue(json, AccountDto.class);
+
+        MvcResult resultIncomeExpense = createIncomeExpenseResult(incomeExpenseDtoTest, accountDtoResponse.getId());
+        String jsonIncomeExpense = resultIncomeExpense.getResponse().getContentAsString();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        IncomeExpenseDto incomeExpenseDtoResponse = mapper.readValue(jsonIncomeExpense, IncomeExpenseDto.class);
+
+        MvcResult result = createScheduledAccountResult(scheduledAccountDtoTest, incomeExpenseDtoResponse.getId());
+        String jsonScheduledAccount = result.getResponse().getContentAsString();
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        ScheduledAccountDto scheduledAccountDtoResponse = mapper.readValue(jsonScheduledAccount, ScheduledAccountDto.class);
+        //when
+        mockMvc.perform(
+                        delete("/api/v1/scheduled_account/delete/" + scheduledAccountDtoResponse.getId())
                                 .header("Authorization", token)
                                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -222,15 +270,14 @@ class IncomeExpenseControllerTest {
                 .andReturn();
 
         mockMvc.perform(
-                        get(String.format("/api/v1/income_expense/get/%s", incomeExpenseDtoResponse.getId()))
+                        get(String.format("/api/v1/scheduled_account/get/%s", scheduledAccountDtoResponse.getId()))
                                 .header("Authorization", token)
                                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(incomeExpenseDtoTest))
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(400))
-                .andExpect(jsonPath("$.error", CoreMatchers.is("Income Expense not found")))
+                .andExpect(jsonPath("$.error", CoreMatchers.is("Scheduled Account not found")))
                 .andReturn();
 
     }
@@ -256,6 +303,17 @@ class IncomeExpenseControllerTest {
         ).andReturn();
     }
 
+    MvcResult createScheduledAccountResult(ScheduledAccountDto scheduledAccountDto, String incomeExpenseId) throws Exception {
+        scheduledAccountDto.setIncomeExpenseId(UUID.fromString(incomeExpenseId));
+        return mockMvc.perform(
+                post("/api/v1/scheduled_account/create")
+                        .header("Authorization", token)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(scheduledAccountDto))
+        ).andReturn();
+    }
+
     String getToken(UserDto userDto) throws Exception {
         mockMvc.perform(
                 post("/api/v1/user/signup")
@@ -272,4 +330,6 @@ class IncomeExpenseControllerTest {
         ).andDo(MockMvcResultHandlers.print()).andReturn();
         return response.getResponse().getHeader("Authorization");
     }
+
+
 }
