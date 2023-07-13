@@ -2,13 +2,17 @@ package com.cash_flow_app.apicashflow.entities_repositories_and_services.base.ac
 
 import com.cash_flow_app.apicashflow.dtos.AccountDto;
 import com.cash_flow_app.apicashflow.dtos.AccountDtos;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.income_expense.IncomeExpense;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;
 import io.jsonwebtoken.io.IOException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

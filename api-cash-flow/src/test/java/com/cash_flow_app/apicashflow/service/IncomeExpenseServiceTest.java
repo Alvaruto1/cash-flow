@@ -9,14 +9,19 @@ import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.inc
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.User;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.user.UserService;
 import jakarta.transaction.Transactional;
+import lombok.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -152,6 +157,57 @@ class IncomeExpenseServiceTest {
         assertEquals(foundIncomes.size(), 5);
         assertEquals(foundExpenses.get(0).getType(), IncomeExpense.Type.EXPENSE);
         assertEquals(foundIncomes.get(0).getType(), IncomeExpense.Type.INCOME);
+    }
+
+    @Test
+    void getIncomesByAccountIdAndDate() throws IOException {
+        createIncomesExpenses(10);
+        Page<IncomeExpense> foundIncomesExpenses = incomeExpenseService.getIncomesByAccountIdAndDate(accountTest.getId(), defaultPage(0), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
+        List<IncomeExpense> pageIcomesExpensesList = foundIncomesExpenses.toList();
+        for (IncomeExpense incomeExpense: pageIcomesExpensesList){
+            assertTrue(incomeExpense.getDate().isBefore(LocalDateTime.now().plusDays(30)) && incomeExpense.getDate().isAfter(LocalDateTime.now()));
+        }
+    }
+
+    @Test
+    void getExpensesByAccountIdAndDate() throws IOException {
+        createIncomesExpenses(10);
+        Page<IncomeExpense> foundIncomesExpenses = incomeExpenseService.getExpensesByAccountIdAndDate(accountTest.getId(), defaultPage(0), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
+        List<IncomeExpense> pageIcomesExpensesList = foundIncomesExpenses.toList();
+        for (IncomeExpense incomeExpense: pageIcomesExpensesList){
+            assertTrue(incomeExpense.getDate().isBefore(LocalDateTime.now().plusDays(30)) && incomeExpense.getDate().isAfter(LocalDateTime.now()));
+        }
+    }
+
+    @Test
+    void getTotalIncomesExpenses() throws IOException {
+        createIncomesExpenses(10);
+        Page<IncomeExpense> foundIncomesExpenses = incomeExpenseService.getIncomesByAccountIdAndDate(accountTest.getId(), defaultPage(0), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
+        List<IncomeExpense> pageIcomesExpensesList = foundIncomesExpenses.toList();
+        BigDecimal totalIncomesExpenses = pageIcomesExpensesList.stream().map(IncomeExpense::getValue).reduce(BigDecimal::add).get();
+        BigDecimal totalValues = incomeExpenseService.getTotalIncomesExpenses(pageIcomesExpensesList);
+        assertEquals(totalIncomesExpenses, totalValues);
+    }
+
+    public static Pageable defaultPage(@NonNull Integer pageNumber){
+        return PageRequest.of(pageNumber, 20);
+    }
+
+    void createIncomesExpenses(int quantity) throws IOException {
+        for(int i=0; i<quantity; i++){
+            int randomInt = (int) (Math.random() * 2);
+            int randomInt2 = (int) (Math.random() * 60);
+            IncomeExpenseDto incomeExpenseDto = IncomeExpenseDto.builder()
+                    .accountId(accountTest.getId().toString())
+                    .type(randomInt == 0 ? IncomeExpense.Type.INCOME.name() : IncomeExpense.Type.EXPENSE.name())
+                    .paymentMethod(IncomeExpense.PaymentMethod.CREDIT_CARD.name())
+                    .category(IncomeExpense.Category.FOOD.name())
+                    .value(new BigDecimal(10000))
+                    .date(LocalDateTime.now().plusDays(randomInt2))
+                    .description("descripcion prueba 2 gasto")
+                    .build();
+            IncomeExpense incomeExpense = incomeExpenseService.save(incomeExpenseDto);
+        }
     }
 
 

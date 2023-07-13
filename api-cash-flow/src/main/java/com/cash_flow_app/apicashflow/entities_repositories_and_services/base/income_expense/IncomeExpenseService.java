@@ -6,9 +6,13 @@ import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.acc
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.account.AccountService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -57,6 +61,14 @@ public class IncomeExpenseService {
         return incomeExpenseRepository.findByAccount_IdAndType(accountId, IncomeExpense.Type.INCOME);
     }
 
+    public Page<IncomeExpense> getIncomesByAccountIdAndDate(@NonNull UUID accountId, @NonNull Pageable pageable, @NonNull LocalDateTime startDate, @NonNull LocalDateTime endDate) {
+        return incomeExpenseRepository.findIncomesExpensesByDate(startDate, endDate, accountId, IncomeExpense.Type.INCOME, pageable);
+    }
+
+    public Page<IncomeExpense> getExpensesByAccountIdAndDate(@NonNull UUID accountId, @NonNull Pageable pageable, @NonNull LocalDateTime startDate, @NonNull LocalDateTime endDate) {
+        return incomeExpenseRepository.findIncomesExpensesByDate(startDate, endDate, accountId, IncomeExpense.Type.EXPENSE, pageable);
+    }
+
     public IncomeExpenseDto incomeExpenseToDto(@NonNull IncomeExpense incomeExpense) {
         return IncomeExpenseDto.builder()
                 .id(incomeExpense.getId().toString())
@@ -70,11 +82,21 @@ public class IncomeExpenseService {
                 .build();
     }
 
+    public BigDecimal getTotalIncomesExpenses(List<IncomeExpense> incomesExpenses) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (IncomeExpense incomeExpense : incomesExpenses) {
+            total = total.add(incomeExpense.getValue());
+        }
+        return total;
+    }
+
     public IncomesExpensesDtos incomesExpensesToDtos(@NonNull List<IncomeExpense> incomesExpenses) {
         IncomesExpensesDtos incomesExpensesDtos = IncomesExpensesDtos.builder().build();
+        BigDecimal total = getTotalIncomesExpenses(incomesExpenses);
         for (IncomeExpense incomeExpense : incomesExpenses) {
             incomesExpensesDtos.getIncomesExpensesDtos().add(incomeExpenseToDto(incomeExpense));
         }
+        incomesExpensesDtos.setTotal(total);
         return incomesExpensesDtos;
     }
 
