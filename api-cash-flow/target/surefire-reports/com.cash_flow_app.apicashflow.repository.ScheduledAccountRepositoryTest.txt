@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.cash_flow_app.apicashflow.repository.ScheduledAccountRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in com.cash_flow_app.apicashflow.repository.ScheduledAccountRepositoryTest
+findByIncomeExpense_Id  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.repository.ScheduledAccountRepositoryTest.setup(ScheduledAccountRepositoryTest.java:57)
+
+findById  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.repository.ScheduledAccountRepositoryTest.setup(ScheduledAccountRepositoryTest.java:57)
+

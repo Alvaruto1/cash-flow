@@ -1,0 +1,56 @@
+-------------------------------------------------------------------------------
+Test set: com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.758 s <<< FAILURE! - in com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest
+create  Time elapsed: 0.185 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.create(ScheduledAccountControllerTest.java:159)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.create(ScheduledAccountControllerTest.java:159)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(42d841db-7fc9-4931-a3dd-3e7bbbbffccb, 9ca89e74-85fd-488d-8a78-84d89db8fc05) already exists.
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.create(ScheduledAccountControllerTest.java:159)
+
+getScheduledAccount  Time elapsed: 0.196 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.getScheduledAccount(ScheduledAccountControllerTest.java:186)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.getScheduledAccount(ScheduledAccountControllerTest.java:186)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(985df12b-4c66-4234-b0a1-83edf02bb771, 86a2f217-7f77-46f7-80af-02d4f6f0a79c) already exists.
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.getScheduledAccount(ScheduledAccountControllerTest.java:186)
+
+deleteScheduledAccount  Time elapsed: 0.19 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.deleteScheduledAccount(ScheduledAccountControllerTest.java:250)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.deleteScheduledAccount(ScheduledAccountControllerTest.java:250)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(209cb903-6af1-47a5-af6b-0abb9cd87779, 44b0fe97-97d2-4c01-9254-29e6f9967328) already exists.
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.deleteScheduledAccount(ScheduledAccountControllerTest.java:250)
+
+getScheduledAccountByIncomeExpenseId  Time elapsed: 0.185 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.getScheduledAccountByIncomeExpenseId(ScheduledAccountControllerTest.java:218)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.getScheduledAccountByIncomeExpenseId(ScheduledAccountControllerTest.java:218)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(8f10c50d-448c-4bcb-922b-3de7474080c9, beee558b-a78d-485d-947d-0798087ea344) already exists.
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.createIncomeExpenseResult(ScheduledAccountControllerTest.java:297)
+	at com.cash_flow_app.apicashflow.controller.ScheduledAccountControllerTest.getScheduledAccountByIncomeExpenseId(ScheduledAccountControllerTest.java:218)
+

@@ -1,0 +1,50 @@
+-------------------------------------------------------------------------------
+Test set: com.cash_flow_app.apicashflow.controller.AccountControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.948 s <<< FAILURE! - in com.cash_flow_app.apicashflow.controller.AccountControllerTest
+deleteAccount  Time elapsed: 0.206 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.deleteAccount(AccountControllerTest.java:172)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.deleteAccount(AccountControllerTest.java:172)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(4fc05fd3-cbab-4688-bf61-2855e1869127, 75c9940f-04b2-4526-9003-43a501066774) already exists.
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.deleteAccount(AccountControllerTest.java:172)
+
+getAccount  Time elapsed: 0.181 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAccount(AccountControllerTest.java:114)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAccount(AccountControllerTest.java:114)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(e1a5dd46-6507-4069-a2ae-3ffd0e1511e4, 8f781b5d-2bf0-4f4a-b2ee-e3b08bb75e87) already exists.
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAccount(AccountControllerTest.java:114)
+
+getAllByCurrentUser  Time elapsed: 0.195 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.createAccountResult(AccountControllerTest.java:197)
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAllByCurrentUser(AccountControllerTest.java:150)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.createAccountResult(AccountControllerTest.java:197)
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAllByCurrentUser(AccountControllerTest.java:150)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(180af810-ac2a-4c97-8d72-5c3a553ece47, b2a490ad-d1d9-4d31-a7a8-1f4f35e90efa) already exists.
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.createAccountResult(AccountControllerTest.java:197)
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAllByCurrentUser(AccountControllerTest.java:150)
+
+getAllByUsername  Time elapsed: 0.184 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.createAccountResult(AccountControllerTest.java:197)
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAllByUsername(AccountControllerTest.java:131)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.createAccountResult(AccountControllerTest.java:197)
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAllByUsername(AccountControllerTest.java:131)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(3220217d-8abd-4936-8088-827abd66e864, 7d630679-1c45-46db-99b0-8689b59cffc3) already exists.
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.createAccountResult(AccountControllerTest.java:197)
+	at com.cash_flow_app.apicashflow.controller.AccountControllerTest.getAllByUsername(AccountControllerTest.java:131)
+

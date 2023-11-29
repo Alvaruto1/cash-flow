@@ -1,0 +1,53 @@
+-------------------------------------------------------------------------------
+Test set: com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.767 s <<< FAILURE! - in com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest
+getIncomeExpense  Time elapsed: 0.184 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.getIncomeExpense(IncomeExpenseControllerTest.java:149)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.getIncomeExpense(IncomeExpenseControllerTest.java:149)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(acb86be0-dc3e-475a-a21d-762ea39ada72, 760aa2e6-e2e7-4c46-b9d8-f688bc1cab6e) already exists.
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.getIncomeExpense(IncomeExpenseControllerTest.java:149)
+
+deleteAccount  Time elapsed: 0.183 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.deleteAccount(IncomeExpenseControllerTest.java:207)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.deleteAccount(IncomeExpenseControllerTest.java:207)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(75d7969d-3978-42aa-b849-d014b661eaa9, 603b103e-facb-434b-a6d3-c41673d4bb3f) already exists.
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.deleteAccount(IncomeExpenseControllerTest.java:207)
+
+create  Time elapsed: 0.183 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.create(IncomeExpenseControllerTest.java:129)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.create(IncomeExpenseControllerTest.java:129)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(8fff23a8-a0c1-4d98-8e91-945c089641d6, 57b5700c-c7e3-462d-bdf4-c8b27ef53a22) already exists.
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.create(IncomeExpenseControllerTest.java:129)
+
+getAllExpenses  Time elapsed: 0.215 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [user_account_pkey]
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.getAllExpenses(IncomeExpenseControllerTest.java:177)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.getAllExpenses(IncomeExpenseControllerTest.java:177)
+Caused by: org.postgresql.util.PSQLException: 
+ERROR: duplicate key value violates unique constraint "user_account_pkey"
+  Detail: Key (user_id, account_id)=(868f4b4a-a5ea-4f56-bc28-23c4483dd87a, ad3faa75-06f2-4044-a351-fbfcef8523db) already exists.
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.createIncomeExpenseResult(IncomeExpenseControllerTest.java:250)
+	at com.cash_flow_app.apicashflow.controller.IncomeExpenseControllerTest.getAllExpenses(IncomeExpenseControllerTest.java:177)
+

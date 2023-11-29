@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 0.015 s <<< FAILURE! - in com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest
+getIncomeExpense  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+getExpensesByAccountIdAndDate  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+delete  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+getTotalIncomesExpenses  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+save  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+getExpensesOrIncomesByAccountId  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+getIncomesExpensesByAccountId  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+
+getIncomesByAccountIdAndDate  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.IncomeExpenseServiceTest.setup(IncomeExpenseServiceTest.java:60)
+

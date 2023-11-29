@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.cash_flow_app.apicashflow.service.ScheduledAccountServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.005 s <<< FAILURE! - in com.cash_flow_app.apicashflow.service.ScheduledAccountServiceTest
+delete  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.ScheduledAccountServiceTest.setup(ScheduledAccountServiceTest.java:61)
+
+getScheduledByIncomeExpenseId  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.ScheduledAccountServiceTest.setup(ScheduledAccountServiceTest.java:61)
+
+getScheduledAccount  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.ScheduledAccountServiceTest.setup(ScheduledAccountServiceTest.java:61)
+
+save  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
+	at com.cash_flow_app.apicashflow.service.ScheduledAccountServiceTest.setup(ScheduledAccountServiceTest.java:61)
+
