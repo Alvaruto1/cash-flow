@@ -27,11 +27,11 @@ public class Account {
 
     private String description;
 
-    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "accounts", fetch = FetchType.EAGER)
     @Builder.Default
     private List<User> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<IncomeExpense> incomes_expenses;
 
     public void addUser(User user) {

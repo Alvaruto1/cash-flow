@@ -35,6 +35,17 @@ public class AccountController extends ApiController {
         return ApiController.okResponse(accountService.accountToDto(account));
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<ApiResponse> update(@RequestBody AccountDto accountDto) throws Exception {
+        Account account;
+        try{
+            account = accountService.update(accountDto);
+        } catch (Exception e){
+            return ApiController.badRequestError(e.getMessage(), "/api/v1/account/update");
+        }
+        return ApiController.okResponse(accountService.accountToDto(account));
+    }
+
     @GetMapping("/get/{uuid}")
     public ResponseEntity<ApiResponse> get(@PathVariable String uuid) throws Exception {
         Account account;
@@ -47,7 +58,11 @@ public class AccountController extends ApiController {
         } catch (Exception e){
             return ApiController.badRequestError(e.getMessage(), "/api/v1/account/get");
         }
-        return ApiController.okResponse(accountService.accountToDto(account));
+        AccountDto accountDto = accountService.accountToDto(account);
+        Optional<User> userOptional = userService.getCurrentLoggedUser();
+        userOptional.ifPresent(value -> accountDto.getUsers().removeIf(user -> user.equals(value.getUsername())));
+
+        return ApiController.okResponse(accountDto);
     }
 
     @GetMapping("/get_all/by_username/{username}")

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +20,9 @@ public interface IncomeExpenseRepository extends JpaRepository<IncomeExpense, Lo
 
     @Query("SELECT iE FROM incomes_expenses iE " +
             "WHERE iE.account.id = :accountId AND " +
-            "iE.date BETWEEN :startDate and :endDate AND " +
+            "CAST(iE.date AS date) BETWEEN :startDate and :endDate AND " +
             "iE.type = :type " +
             "ORDER BY iE.date DESC"
     )
-    Page<IncomeExpense> findIncomesExpensesByDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("accountId") UUID accountId, @Param("type") IncomeExpense.Type type, @NonNull Pageable pageable);
+    List<IncomeExpense> findIncomesExpensesByDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("accountId") UUID accountId, @Param("type") IncomeExpense.Type type);
 }

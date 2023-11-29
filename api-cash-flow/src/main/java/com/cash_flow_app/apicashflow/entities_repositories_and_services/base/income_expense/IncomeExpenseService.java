@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class IncomeExpenseService {
 
     public IncomeExpense save(@NonNull IncomeExpenseDto incomeExpenseDto) throws IOException {
         Optional<Account> account = accountService.getAccount(UUID.fromString(incomeExpenseDto.getAccountId()));
-        if(account.isEmpty()){
+        if (account.isEmpty()) {
             throw new IOException("Account not found");
         }
         IncomeExpense incomeExpense = IncomeExpense.builder()
@@ -61,16 +63,95 @@ public class IncomeExpenseService {
         return incomeExpenseRepository.findByAccount_IdAndType(accountId, IncomeExpense.Type.INCOME);
     }
 
-    public Page<IncomeExpense> getIncomesByAccountIdAndDate(@NonNull UUID accountId, @NonNull Pageable pageable, @NonNull LocalDateTime startDate, @NonNull LocalDateTime endDate) {
-        return incomeExpenseRepository.findIncomesExpensesByDate(startDate, endDate, accountId, IncomeExpense.Type.INCOME, pageable);
+    public List<IncomeExpense> getIncomesByAccountIdAndDate(@NonNull UUID accountId, @NonNull LocalDate startDate, @NonNull LocalDate endDate) {
+        List<IncomeExpense> incomes = incomeExpenseRepository.findIncomesExpensesByDate(startDate, endDate, accountId, IncomeExpense.Type.INCOME);
+        return generateIncomesExpensesToScheduleAccount(incomes, endDate);
     }
 
-    public Page<IncomeExpense> getExpensesByAccountIdAndDate(@NonNull UUID accountId, @NonNull Pageable pageable, @NonNull LocalDateTime startDate, @NonNull LocalDateTime endDate) {
-        return incomeExpenseRepository.findIncomesExpensesByDate(startDate, endDate, accountId, IncomeExpense.Type.EXPENSE, pageable);
+    public List<IncomeExpense> getExpensesByAccountIdAndDate(@NonNull UUID accountId, @NonNull LocalDate startDate, @NonNull LocalDate endDate) {
+        List<IncomeExpense> expenses = incomeExpenseRepository.findIncomesExpensesByDate(startDate, endDate, accountId, IncomeExpense.Type.EXPENSE);
+        return generateIncomesExpensesToScheduleAccount(expenses, endDate);
+    }
+
+    private List<IncomeExpense> generateIncomesExpensesToScheduleAccount(List<IncomeExpense> incomesExpenses, LocalDate endDate) {
+        List<IncomeExpense> incomesWithoutScheduledAccounts = incomesExpenses.stream().filter(incomeExpense -> incomeExpense.getScheduledAccount() == null).collect(Collectors.toList());
+        List<IncomeExpense> incomesWithScheduledAccounts = incomesExpenses.stream().filter(incomeExpense -> incomeExpense.getScheduledAccount() != null).toList();
+        for (IncomeExpense incomeExpense : incomesWithScheduledAccounts) {
+            ScheduledAccount scheduledAccount = incomeExpense.getScheduledAccount();
+
+            LocalDateTime startDateScheduled = scheduledAccount.getStartDate();
+            LocalDateTime endDateScheduled = scheduledAccount.getEndDate();
+            ScheduledAccount.Periodicity periodicity = scheduledAccount.getPeriodicity();
+
+            IncomeExpense.IncomeExpenseBuilder incomeExpenseBuilder = IncomeExpense.builder()
+                    .id(incomeExpense.getId())
+                    .value(incomeExpense.getValue())
+                    .paymentMethod(incomeExpense.getPaymentMethod())
+                    .category(incomeExpense.getCategory())
+                    .type(incomeExpense.getType())
+                    .description(incomeExpense.getDescription())
+                    .scheduledAccount(incomeExpense.getScheduledAccount())
+                    .account(incomeExpense.getAccount());
+            LocalDateTime endDateTime = endDate.atStartOfDay();
+            switch (periodicity) {
+                case DAILY:
+                    for (LocalDateTime date = startDateScheduled; date.isBefore(endDateScheduled) && date.isBefore(endDateTime); date = date.plusDays(1)) {
+                        IncomeExpense incomeExpensePeriod = incomeExpenseBuilder
+                                .date(date)
+                                .build();
+                        incomesWithoutScheduledAccounts.add(incomeExpensePeriod);
+                    }
+                    break;
+                case WEEKLY:
+                    for (LocalDateTime date = startDateScheduled; date.isBefore(endDateScheduled) && date.isBefore(endDateTime); date = date.plusDays(7)) {
+                        IncomeExpense incomeExpensePeriod = incomeExpenseBuilder
+                                .date(date)
+                                .build();
+                        incomesWithoutScheduledAccounts.add(incomeExpensePeriod);
+                    }
+                    break;
+                case MONTHLY:
+                    for (LocalDateTime date = startDateScheduled; date.isBefore(endDateScheduled) && date.isBefore(endDateTime); date = date.plusMonths(1)) {
+                        IncomeExpense incomeExpensePeriod = incomeExpenseBuilder
+                                .date(date)
+                                .build();
+                        incomesWithoutScheduledAccounts.add(incomeExpensePeriod);
+                    }
+                    break;
+                case BIMONTHLY:
+                    for (LocalDateTime date = startDateScheduled; date.isBefore(endDateScheduled) && date.isBefore(endDateTime); date = date.plusMonths(2)) {
+                        IncomeExpense incomeExpensePeriod = incomeExpenseBuilder
+                                .date(date)
+                                .build();
+                        incomesWithoutScheduledAccounts.add(incomeExpensePeriod);
+                    }
+                    break;
+                case SEMIANNUAL:
+                    for (LocalDateTime date = startDateScheduled; date.isBefore(endDateScheduled) && date.isBefore(endDateTime); date = date.plusMonths(6)) {
+                        IncomeExpense incomeExpensePeriod = incomeExpenseBuilder
+                                .date(date)
+                                .build();
+                        incomesWithoutScheduledAccounts.add(incomeExpensePeriod);
+                    }
+                    break;
+                case ANNUAL:
+                    for (LocalDateTime date = startDateScheduled; date.isBefore(endDateScheduled) && date.isBefore(endDateTime); date = date.plusYears(1)) {
+                        IncomeExpense incomeExpensePeriod = incomeExpenseBuilder
+                                .date(date)
+                                .build();
+                        incomesWithoutScheduledAccounts.add(incomeExpensePeriod);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return incomesWithoutScheduledAccounts;
     }
 
     public IncomeExpenseDto incomeExpenseToDto(@NonNull IncomeExpense incomeExpense) {
         return IncomeExpenseDto.builder()
+                .hasScheduledAccount(incomeExpense.getScheduledAccount() != null)
                 .id(incomeExpense.getId().toString())
                 .description(incomeExpense.getDescription())
                 .category(incomeExpense.getCategory().name())

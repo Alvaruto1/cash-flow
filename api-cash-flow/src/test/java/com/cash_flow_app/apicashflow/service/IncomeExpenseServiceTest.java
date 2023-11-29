@@ -162,8 +162,7 @@ class IncomeExpenseServiceTest {
     @Test
     void getIncomesByAccountIdAndDate() throws IOException {
         createIncomesExpenses(10);
-        Page<IncomeExpense> foundIncomesExpenses = incomeExpenseService.getIncomesByAccountIdAndDate(accountTest.getId(), defaultPage(0), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
-        List<IncomeExpense> pageIcomesExpensesList = foundIncomesExpenses.toList();
+        List<IncomeExpense> pageIcomesExpensesList = incomeExpenseService.getIncomesByAccountIdAndDate(accountTest.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
         for (IncomeExpense incomeExpense: pageIcomesExpensesList){
             assertTrue(incomeExpense.getDate().isBefore(LocalDateTime.now().plusDays(30)) && incomeExpense.getDate().isAfter(LocalDateTime.now()));
         }
@@ -172,8 +171,7 @@ class IncomeExpenseServiceTest {
     @Test
     void getExpensesByAccountIdAndDate() throws IOException {
         createIncomesExpenses(10);
-        Page<IncomeExpense> foundIncomesExpenses = incomeExpenseService.getExpensesByAccountIdAndDate(accountTest.getId(), defaultPage(0), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
-        List<IncomeExpense> pageIcomesExpensesList = foundIncomesExpenses.toList();
+        List<IncomeExpense> pageIcomesExpensesList = incomeExpenseService.getExpensesByAccountIdAndDate(accountTest.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
         for (IncomeExpense incomeExpense: pageIcomesExpensesList){
             assertTrue(incomeExpense.getDate().isBefore(LocalDateTime.now().plusDays(30)) && incomeExpense.getDate().isAfter(LocalDateTime.now()));
         }
@@ -182,8 +180,7 @@ class IncomeExpenseServiceTest {
     @Test
     void getTotalIncomesExpenses() throws IOException {
         createIncomesExpenses(10);
-        Page<IncomeExpense> foundIncomesExpenses = incomeExpenseService.getIncomesByAccountIdAndDate(accountTest.getId(), defaultPage(0), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
-        List<IncomeExpense> pageIcomesExpensesList = foundIncomesExpenses.toList();
+        List<IncomeExpense> pageIcomesExpensesList = incomeExpenseService.getIncomesByAccountIdAndDate(accountTest.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(30));
         BigDecimal totalIncomesExpenses = pageIcomesExpensesList.stream().map(IncomeExpense::getValue).reduce(BigDecimal::add).get();
         BigDecimal totalValues = incomeExpenseService.getTotalIncomesExpenses(pageIcomesExpensesList);
         assertEquals(totalIncomesExpenses, totalValues);

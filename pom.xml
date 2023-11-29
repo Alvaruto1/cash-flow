@@ -8,7 +8,7 @@
     <artifactId>cash-flow-app</artifactId>
     <version>NA</version>
     <packaging>pom</packaging>
-    <description>Java Monorepo for Symplifica's core webservices.</description>
+    <description>Java Monorepo for cash flow App.</description>
     <properties>
         <java.version>20</java.version>
     </properties>

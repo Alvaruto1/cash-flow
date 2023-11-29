@@ -24,6 +24,7 @@ public class IncomeExpenseDto implements ApiResponse {
     private String type;
     private BigDecimal value;
     private LocalDateTime date;
+    private boolean hasScheduledAccount;
     private String accountId;
 }
 
