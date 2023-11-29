@@ -78,6 +78,7 @@ public class WebSecurityConfiguration {
                 .requestMatchers(HttpMethod.PATCH, "/demo").hasAuthority("ENDPOINT_DEMO_PERMISSION_UPDATE")
                 .requestMatchers(HttpMethod.DELETE, "/demo").hasAuthority("ENDPOINT_DEMO_PERMISSION_DELETE")
                 .requestMatchers(HttpMethod.POST, "/api/v1/user/signup").permitAll()
+                .requestMatchers("/health").permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)

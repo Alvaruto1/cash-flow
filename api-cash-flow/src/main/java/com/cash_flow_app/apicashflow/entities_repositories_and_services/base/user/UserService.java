@@ -6,10 +6,16 @@ import com.cash_flow_app.apicashflow.dtos.UsersDto;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.Authority;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.authority.AuthorityService;
 import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.security.LoginDetails;
+import com.cash_flow_app.apicashflow.entities_repositories_and_services.base.security.LoginService;
 import com.cash_flow_app.apicashflow.utils.PermissionName;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -63,6 +69,16 @@ public class UserService{
     public Optional<User> getCurrentLoggedUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return findByUsername(principal.toString());
+    }
+
+    public void setCurrentLoggedUser(String username){
+        User user = findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserDetails userDetails = new LoginDetails(user);
+        Authentication authentication =new UsernamePasswordAuthenticationToken(
+                userDetails, userDetails.getPassword(), userDetails.getAuthorities()
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public UserDto usersToDto(@NonNull User user) {
